@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy New Year Tuntrum ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+    body {
+        margin: 0;
+        background: black;
+        overflow: hidden;
+        font-family: "Comic Sans MS", cursive;
+        color: white;
+    }
+
+    canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .text {
+        position: absolute;
+        bottom: 8%;
+        width: 100%;
+        text-align: center;
+        animation: fadeIn 3s ease-in-out;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        color: #ff4d6d;
+    }
+
+    p {
+        font-size: 1.2rem;
+        color: #fff;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+</style>
+</head>
+
+<body>
+
+<canvas id="canvas"></canvas>
+
+<div class="text">
+    <h1>Happy New Year Tuntrum ❤️</h1>
+    <p>May this year bring lots of happiness to you ✨</p>
+</div>
+
+<script>
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener("resize", resize);
+
+let scale = 1;
+let grow = true;
+
+// ❤️ HEART
+function drawHeart(size) {
+    ctx.save();
+    ctx.translate(canvas.width / 2, canvas.height / 2);
+    ctx.scale(size, size);
+    ctx.beginPath();
+    ctx.moveTo(0, -30);
+    ctx.bezierCurveTo(-50, -80, -120, -20, 0, 80);
+    ctx.bezierCurveTo(120, -20, 50, -80, 0, -30);
+    ctx.fillStyle = "red";
+    ctx.fill();
+    ctx.restore();
+}
+
+// 👩 SKETCH FACE
+function drawFace() {
+    ctx.strokeStyle = "pink";
+    ctx.lineWidth = 3;
+
+    // Face
+    ctx.beginPath();
+    ctx.arc(canvas.width/2, canvas.height/2 - 200, 45, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Eyes
+    ctx.beginPath();
+    ctx.arc(canvas.width/2 - 15, canvas.height/2 - 210, 4, 0, Math.PI * 2);
+    ctx.arc(canvas.width/2 + 15, canvas.height/2 - 210, 4, 0, Math.PI * 2);
+    ctx.fillStyle = "pink";
+    ctx.fill();
+
+    // Smile
+    ctx.beginPath();
+    ctx.arc(canvas.width/2, canvas.height/2 - 195, 20, 0, Math.PI);
+    ctx.stroke();
+}
+
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    drawHeart(scale);
+    drawFace();
+
+    if (grow) {
+        scale += 0.008;
+        if (scale > 1.1) grow = false;
+    } else {
+        scale -= 0.008;
+        if (scale < 0.9) grow = true;
+    }
+
+    requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+
+</body>
+</html>
